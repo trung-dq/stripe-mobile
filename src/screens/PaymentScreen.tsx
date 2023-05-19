@@ -17,6 +17,7 @@ export default function PaymentScreen() {
       },
       body: JSON.stringify({
         currency: 'usd',
+        payment_method_types: ['card'],
       }),
     });
     const {clientSecret} = await response.json();

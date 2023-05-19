@@ -26,6 +26,7 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 import {StripeProvider} from '@stripe/stripe-react-native';
 import PaymentScreen from './src/screens/PaymentScreen';
+import P24PaymentScreen from './src/screens/P24PaymentScreen';
 
 type SectionProps = PropsWithChildren<{
   title: string;
@@ -76,6 +77,7 @@ function App(): JSX.Element {
         urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
       >
         <PaymentScreen />
+        <P24PaymentScreen />
       </StripeProvider>
     </SafeAreaView>
   );
