@@ -1,10 +1,10 @@
 import type {BillingDetails} from '@stripe/stripe-react-native';
 import React, {useState} from 'react';
-import {Alert, StyleSheet, TextInput, View} from 'react-native';
+import {Alert, Text, TextInput, TouchableOpacity, View} from 'react-native';
 import {useConfirmPayment} from '@stripe/stripe-react-native';
 import {API_URL} from '../components/constants';
 import Button from '../components/Button';
-import {colors} from '../../colors';
+import styles from '../styles';
 
 export default function P24PaymentScreen() {
   const [email, setEmail] = useState('');
@@ -58,7 +58,7 @@ export default function P24PaymentScreen() {
   };
 
   return (
-    <View>
+    <View style={styles.layout}>
       <TextInput
         autoCapitalize="none"
         placeholder="E-mail"
@@ -67,35 +67,12 @@ export default function P24PaymentScreen() {
         style={styles.input}
       />
 
-      <Button
-        variant="primary"
-        onPress={handlePayPress}
-        title="Pay"
-        accessibilityLabel="Pay"
-        loading={loading}
-      />
+      <TouchableOpacity
+        activeOpacity={0.8}
+        style={styles.payment}
+        onPress={handlePayPress}>
+        <Text style={{color: 'white'}}>Pay Now</Text>
+      </TouchableOpacity>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  cardField: {
-    width: '100%',
-    height: 50,
-    marginVertical: 30,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  text: {
-    marginLeft: 12,
-  },
-  input: {
-    height: 44,
-    borderBottomColor: colors.slate,
-    borderBottomWidth: 1.5,
-    marginBottom: 20,
-  },
-});
