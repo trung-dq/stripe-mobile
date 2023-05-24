@@ -4,6 +4,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import PaymentScreen from '../screens/PaymentScreen';
 import P24PaymentScreen from '../screens/P24PaymentScreen';
+import CheckoutScreen from '../screens/CheckoutScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -14,6 +15,7 @@ function RootNavigator() {
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="PaymentScreen" component={PaymentScreen} />
         <Stack.Screen name="P24PaymentScreen" component={P24PaymentScreen} />
+        <Stack.Screen name="CheckoutScreen" component={CheckoutScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );

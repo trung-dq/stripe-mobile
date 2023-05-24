@@ -122,4 +122,54 @@ app.post(
   },
 );
 
+app.post('/payment-sheet', async (_, res) => {
+  const {secret_key} = getKeys();
+
+  const stripe = new Stripe(secret_key as string, {
+    apiVersion: '2022-11-15',
+    typescript: true,
+  });
+
+  const customers = await stripe.customers.list();
+
+  // Here, we're getting latest customer only for example purposes.
+  const customer = customers.data[0];
+
+  if (!customer) {
+    return res.send({
+      error: 'You have no customer created',
+    });
+  }
+
+  const ephemeralKey = await stripe.ephemeralKeys.create(
+    {customer: customer.id},
+    {apiVersion: '2022-11-15'},
+  );
+  const paymentIntent = await stripe.paymentIntents.create({
+    amount: 5099,
+    currency: 'usd',
+    customer: customer.id,
+    // Edit the following to support different payment methods in your PaymentSheet
+    // Note: some payment methods have different requirements: https://stripe.com/docs/payments/payment-methods/integration-options
+    payment_method_types: [
+      'card',
+      // 'ideal',
+      // 'sepa_debit',
+      // 'sofort',
+      // 'bancontact',
+      // 'p24',
+      // 'giropay',
+      // 'eps',
+      // 'afterpay_clearpay',
+      // 'klarna',
+      // 'us_bank_account',
+    ],
+  });
+  return res.json({
+    paymentIntent: paymentIntent.client_secret,
+    ephemeralKey: ephemeralKey.secret,
+    customer: customer.id,
+  });
+});
+
 app.listen(6000, () => console.log('Server up'));

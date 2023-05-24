@@ -5,14 +5,22 @@ import styles from '../styles';
 
 const HomeScreen = () => {
   const navigation = useNavigation();
+
   const goP24Payment = () => {
     // @ts-ignore
     navigation.navigate('P24PaymentScreen');
   };
+
   const goCardPayment = () => {
     // @ts-ignore
     navigation.navigate('PaymentScreen');
   };
+
+  const goCheckout = () => {
+    // @ts-ignore
+    navigation.navigate('CheckoutScreen');
+  };
+
   return (
     <View style={styles.layout}>
       <View style={styles.wrapper}>
@@ -21,7 +29,10 @@ const HomeScreen = () => {
             <Text>P24 Payment</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.btn} onPress={goCardPayment}>
-            <Text>Card Payment</Text>
+            <Text>Card Element Only</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.btn} onPress={goCheckout}>
+            <Text>Mobile Payment Element</Text>
           </TouchableOpacity>
         </ScrollView>
       </View>
